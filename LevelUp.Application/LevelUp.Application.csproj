@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Dtos\Team\" />
     <Folder Include="Dtos\Redemption\" />
-    <Folder Include="Dtos\Reward\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Mappers\" />
     <Folder Include="UseCases\" />
