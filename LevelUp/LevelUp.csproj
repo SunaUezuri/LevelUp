@@ -19,7 +19,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Doc\" />
+	  <Folder Include="Doc\Samples\Redemption\" />
+	  <Folder Include="Doc\Samples\Reward\" />
+	  <Folder Include="Doc\Samples\Team\" />
 	</ItemGroup>
 
 	<ItemGroup>
