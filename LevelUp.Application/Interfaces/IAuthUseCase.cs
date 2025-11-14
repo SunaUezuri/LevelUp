@@ -6,8 +6,8 @@ namespace LevelUp.Application.Interfaces
 {
     public interface IAuthUseCase
     {
-        Task<OperationResult<AuthResponseDto>> LoginAsync(AuthRequestDto request);
+        Task<OperationResult<AuthResponseDto?>> LoginAsync(AuthRequestDto request);
 
-        Task<OperationResult<UserResponseDto>> RegisterAsync(UserCreateDto request);
+        Task<OperationResult<UserResponseDto?>> RegisterAsync(UserCreateDto request);
     }
 }
