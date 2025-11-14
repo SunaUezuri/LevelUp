@@ -51,12 +51,21 @@ namespace LevelUp.Application.UseCases
         {
             try
             {
-                var existingUser = await _userRepository.GetByEmailAsync(request.Email);
-                if (existingUser != null)
+                try
                 {
-                    return OperationResult<UserResponseDto?>.Failure("Este e-mail já está em uso.", (int)HttpStatusCode.Conflict);
-                }
+                    var existingUser = await _userRepository.GetByEmailAsync(request.Email);
 
+                    if (existingUser != null)
+                    {
+                        return OperationResult<UserResponseDto?>.Failure("Este e-mail já está em uso.", (int)HttpStatusCode.Conflict);
+                    }
+                }
+                catch (EmailNotFoundException)
+                {
+                }
+                catch (NoContentException)
+                {
+                }
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
                 var userEntity = request.ToEntity(hashedPassword);

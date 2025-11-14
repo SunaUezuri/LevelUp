@@ -34,6 +34,7 @@ namespace LevelUp.Infra.IoC
             services.AddTransient<IRewardRedemptionRepository, RewardRedemptionRepository>();
 
             // Application UseCases
+            services.AddTransient<IAuthUseCase, AuthUseCase>();
             services.AddTransient<ITeamUseCase, TeamUseCase>();
             services.AddTransient<IUserUseCase, UserUseCase>();
             services.AddTransient<IRewardUseCase, RewardUseCase>();
