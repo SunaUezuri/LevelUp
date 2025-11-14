@@ -19,10 +19,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Doc\Samples\Reward\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\LevelUp.Application\LevelUp.Application.csproj" />
 	  <ProjectReference Include="..\LevelUp.Domain\LevelUp.Domain.csproj" />
 	  <ProjectReference Include="..\LevelUp.Infra.IoC\LevelUp.Infra.IoC.csproj" />
