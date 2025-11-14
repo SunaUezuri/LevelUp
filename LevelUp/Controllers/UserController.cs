@@ -15,6 +15,7 @@ namespace LevelUp.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserUseCase _userUseCase;
@@ -25,6 +26,7 @@ namespace LevelUp.Controllers
         }
 
         [HttpGet("me")]
+        [Authorize(Roles = "ADMIN, USER")]
         [SwaggerOperation(
             Summary = "Busca o perfil do usuário logado",
             Description = "Retorna os dados do perfil do usuário que está autenticado via Token JWT."
@@ -62,6 +64,7 @@ namespace LevelUp.Controllers
 
 
         [HttpGet("list")]
+        [Authorize(Roles = "ADMIN")]
         [SwaggerOperation(
             Summary = "[ADMIN] Lista todos os usuários",
             Description = "Retorna uma lista paginada de todos os usuários no sistema."
@@ -112,6 +115,7 @@ namespace LevelUp.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "ADMIN")]
         [SwaggerOperation(
             Summary = "[ADMIN] Busca usuário por ID",
             Description = "Retorna os dados de um usuário específico."
@@ -145,6 +149,7 @@ namespace LevelUp.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "ADMIN")]
         [SwaggerOperation(
             Summary = "[ADMIN] Atualiza um usuário",
             Description = "Atualiza dados cadastrais de um usuário (não atualiza senha)."
@@ -176,6 +181,7 @@ namespace LevelUp.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         [SwaggerOperation(
             Summary = "[ADMIN] Desativa (Soft Delete) um usuário",
             Description = "Marca um usuário como Inativo (IS_ACTIVE = 'N'). O usuário não é fisicamente deletado."
