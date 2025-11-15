@@ -24,10 +24,12 @@ namespace LevelUp.Domain.Entities
 
         [Required]
         [Column("point_cost")]
+        [Range(1, int.MaxValue, ErrorMessage = "PointCost deve ser maior que 0.")]
         public int PointCost { get; set; }
 
         [Required]
         [Column("stock_quantity")]
+        [Range(0, int.MaxValue, ErrorMessage = "StockQuantity não pode ser negativo.")]
         public int StockQuantity { get; set; } = 0;
 
         [Required]
