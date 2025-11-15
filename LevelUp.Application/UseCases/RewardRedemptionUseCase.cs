@@ -3,6 +3,7 @@ using LevelUp.Application.Interfaces;
 using LevelUp.Application.Mappers;
 using LevelUp.Domain.Common;
 using LevelUp.Domain.Entities;
+using LevelUp.Domain.Errors;
 using LevelUp.Domain.Interfaces;
 using System.Net;
 
@@ -42,6 +43,10 @@ namespace LevelUp.Application.UseCases
                 };
 
                 return OperationResult<PageResultModel<IEnumerable<RedemptionResponseDto>>>.Success(responsePageResult);
+            }
+            catch (IdNotFoundException ex)
+            {
+                return OperationResult<PageResultModel<IEnumerable<RedemptionResponseDto>>>.Failure(ex.Message, (int)HttpStatusCode.NotFound);
             }
             catch (Exception ex)
             {
@@ -92,6 +97,10 @@ namespace LevelUp.Application.UseCases
                 );
 
                 return OperationResult<RedemptionResponseDto?>.Success(responseDto, (int)HttpStatusCode.Created);
+            }
+            catch (IdNotFoundException ex)
+            {
+                return OperationResult<RedemptionResponseDto?>.Failure(ex.Message, (int)HttpStatusCode.NotFound);
             }
             catch (Exception ex)
             {
