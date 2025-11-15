@@ -57,7 +57,7 @@ namespace LevelUp.Controllers
                 data = result.Value,
                 links = new object[]
                 {
-                    new { rel = "self", href = Url.Action(nameof(GetMyHistory), "RedemptionReward", null, Request.Scheme) },
+                    new { rel = "self", href = Url.Action(nameof(GetMyHistory), "RewardRedemption", null, Request.Scheme) },
                     new { rel = "view_reward", href = Url.Action("GetById", "Reward", new { id = result.Value.RewardId }, Request.Scheme) }
                 }
             };
@@ -99,7 +99,7 @@ namespace LevelUp.Controllers
                 },
                 links = new object[]
                 {
-                     new { rel = "self", href = Url.Action(nameof(GetMyHistory), "RedemptionReward", new { offset, take }, Request.Scheme) },
+                     new { rel = "self", href = Url.Action(nameof(GetMyHistory), "RewardRedemption", new { offset, take }, Request.Scheme) },
                      new { rel = "view_store", href = Url.Action("GetAll", "Reward", null, Request.Scheme) }
                 }
             };
