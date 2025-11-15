@@ -27,7 +27,7 @@ namespace LevelUp.Infra.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("reward_id");
+                        .HasColumnName("REWARD_ID");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -40,7 +40,7 @@ namespace LevelUp.Infra.Data.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("NVARCHAR2(1000)")
-                        .HasColumnName("description");
+                        .HasColumnName("DESCRIPTION");
 
                     b.Property<string>("IsActive")
                         .IsRequired()
@@ -53,17 +53,17 @@ namespace LevelUp.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("NVARCHAR2(255)")
-                        .HasColumnName("name");
+                        .HasColumnName("NAME");
 
                     b.Property<int>("PointCost")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("point_cost");
+                        .HasColumnName("POINT_COST");
 
                     b.Property<int>("StockQuantity")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
                         .HasDefaultValue(0)
-                        .HasColumnName("stock_quantity");
+                        .HasColumnName("STOCK_QUANTITY");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TIMESTAMP(7)")
@@ -79,33 +79,46 @@ namespace LevelUp.Infra.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("redemption_id");
+                        .HasColumnName("REDEMPTION_ID");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("PointsSpent")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("points_spent");
+                        .HasColumnName("POINTS_SPENT");
+
+                    b.Property<int>("REWARD_ID")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<DateTime>("RedeemedAt")
                         .HasColumnType("TIMESTAMP(7)")
-                        .HasColumnName("redeemed_at");
+                        .HasColumnName("REDEEMED_AT");
 
                     b.Property<int>("RewardId")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("reward_id");
+                        .HasColumnName("REWARD_ID");
+
+                    b.Property<int>("USER_ID")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("user_id");
+                        .HasColumnName("USER_ID");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RewardId");
+                    b.HasIndex("REWARD_ID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("USER_ID");
 
-                    b.ToTable("TB_LEVELUP_REWARD_REDEMPTIONS");
+                    b.ToTable("TB_LEVELUP_REWARD_REDEMPTIONS", t =>
+                        {
+                            t.Property("REWARD_ID")
+                                .HasColumnName("REWARD_ID1");
+
+                            t.Property("USER_ID")
+                                .HasColumnName("USER_ID1");
+                        });
                 });
 
             modelBuilder.Entity("LevelUp.Domain.Entities.TeamEntity", b =>
@@ -113,7 +126,7 @@ namespace LevelUp.Infra.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("team_id");
+                        .HasColumnName("TEAM_ID");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -121,7 +134,7 @@ namespace LevelUp.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("NVARCHAR2(100)")
-                        .HasColumnName("team_name");
+                        .HasColumnName("TEAM_NAME");
 
                     b.HasKey("Id");
 
@@ -136,7 +149,7 @@ namespace LevelUp.Infra.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("user_id");
+                        .HasColumnName("USER_ID");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -150,13 +163,13 @@ namespace LevelUp.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("NVARCHAR2(255)")
-                        .HasColumnName("email");
+                        .HasColumnName("EMAIL");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("NVARCHAR2(255)")
-                        .HasColumnName("full_name");
+                        .HasColumnName("FULL_NAME");
 
                     b.Property<string>("IsActive")
                         .IsRequired()
@@ -168,19 +181,19 @@ namespace LevelUp.Infra.Data.Migrations
                     b.Property<string>("JobTitle")
                         .HasMaxLength(100)
                         .HasColumnType("NVARCHAR2(100)")
-                        .HasColumnName("job_title");
+                        .HasColumnName("JOB_TITLE");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("NVARCHAR2(1000)")
-                        .HasColumnName("password_hash");
+                        .HasColumnName("PASSWORD_HASH");
 
                     b.Property<int>("PointBalance")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
                         .HasDefaultValue(0)
-                        .HasColumnName("point_balance");
+                        .HasColumnName("POINT_BALANCE");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -188,11 +201,14 @@ namespace LevelUp.Infra.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("NVARCHAR2(20)")
                         .HasDefaultValue("USER")
-                        .HasColumnName("role");
+                        .HasColumnName("ROLE");
+
+                    b.Property<int?>("TEAM_ID")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int?>("TeamId")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("team_id");
+                        .HasColumnName("TEAM_ID");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TIMESTAMP(7)")
@@ -203,22 +219,26 @@ namespace LevelUp.Infra.Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("TeamId");
+                    b.HasIndex("TEAM_ID");
 
-                    b.ToTable("TB_LEVELUP_USERS");
+                    b.ToTable("TB_LEVELUP_USERS", t =>
+                        {
+                            t.Property("TEAM_ID")
+                                .HasColumnName("TEAM_ID1");
+                        });
                 });
 
             modelBuilder.Entity("LevelUp.Domain.Entities.RewardRedemptionEntity", b =>
                 {
                     b.HasOne("LevelUp.Domain.Entities.RewardEntity", "Reward")
                         .WithMany("RewardRedemptions")
-                        .HasForeignKey("RewardId")
+                        .HasForeignKey("REWARD_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LevelUp.Domain.Entities.UserEntity", "User")
                         .WithMany("RewardRedemptions")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("USER_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -231,7 +251,7 @@ namespace LevelUp.Infra.Data.Migrations
                 {
                     b.HasOne("LevelUp.Domain.Entities.TeamEntity", "Team")
                         .WithMany("Users")
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("TEAM_ID");
 
                     b.Navigation("Team");
                 });

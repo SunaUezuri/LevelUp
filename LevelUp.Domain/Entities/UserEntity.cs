@@ -10,39 +10,39 @@ namespace LevelUp.Domain.Entities
     public class UserEntity
     {
         [Key]
-        [Column("user_id")]
+        [Column("USER_ID")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
-        [Column("full_name")]
+        [Column("FULL_NAME")]
         public string FullName { get; set; } = string.Empty;
 
         [Required]
         [StringLength(255)]
         [EmailAddress(ErrorMessage = "O email informado não possui um formato válido.")]
-        [Column("email")]
+        [Column("EMAIL")]
         public string Email { get; set; } = string.Empty;
 
         [Required]
         [StringLength(1000)]
-        [Column("password_hash")]
+        [Column("PASSWORD_HASH")]
         public string PasswordHash { get; set; } = string.Empty;
 
         [StringLength(100)]
-        [Column("job_title")]
+        [Column("JOB_TITLE")]
         public string? JobTitle { get; set; }
 
         [Required]
-        [Column("point_balance")]
+        [Column("POINT_BALANCE")]
         public int PointBalance { get; set; } = 0;
 
-        [Column("team_id")]
+        [Column("TEAM_ID")]
         public int? TeamId { get; set; }
 
         [Required]
         [StringLength(20)]
-        [Column("role")]
+        [Column("ROLE")]
         public string Role { get; set; } = "USER";
 
         [Required]
@@ -56,7 +56,7 @@ namespace LevelUp.Domain.Entities
         [Column("IS_ACTIVE", TypeName = "CHAR(1)")]
         public char IsActive { get; set; }
 
-        [ForeignKey("TeamId")]
+        [ForeignKey("TEAM_ID")]
         [JsonIgnore]
         public virtual TeamEntity? Team { get; set; }
 

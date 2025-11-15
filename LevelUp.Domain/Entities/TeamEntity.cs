@@ -10,12 +10,12 @@ namespace LevelUp.Domain.Entities
     public class TeamEntity
     {
         [Key]
-        [Column("team_id")]
+        [Column("TEAM_ID")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
-        [Column("team_name")]
+        [Column("TEAM_NAME")]
         public string TeamName { get; set; } = string.Empty;
 
         [JsonIgnore]

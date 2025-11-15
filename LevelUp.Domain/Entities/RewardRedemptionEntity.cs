@@ -8,33 +8,33 @@ namespace LevelUp.Domain.Entities
     public class RewardRedemptionEntity
     {
         [Key]
-        [Column("redemption_id")]
+        [Column("REDEMPTION_ID")]
         public int Id { get; set; }
 
         [Required]
-        [Column("user_id")]
+        [Column("USER_ID")]
         [Range(1, int.MaxValue, ErrorMessage = "UserId deve ser válido.")]
         public int UserId { get; set; }
 
         [Required]
-        [Column("reward_id")]
+        [Column("REWARD_ID")]
         [Range(1, int.MaxValue, ErrorMessage = "RewardId deve ser válido.")]
         public int RewardId { get; set; }
 
         [Required]
-        [Column("redeemed_at")]
+        [Column("REDEEMED_AT")]
         public DateTime RedeemedAt { get; set; } = DateTime.UtcNow;
 
         [Required]
-        [Column("points_spent")]
+        [Column("POINTS_SPENT")]
         [Range(1, int.MaxValue, ErrorMessage = "PointsSpent deve ser maior que 0.")]
         public int PointsSpent { get; set; }
 
-        [ForeignKey("UserId")]
+        [ForeignKey("USER_ID")]
         [JsonIgnore]
         public virtual UserEntity User { get; set; }
 
-        [ForeignKey("RewardId")]
+        [ForeignKey("REWARD_ID")]
         [JsonIgnore]
         public virtual RewardEntity Reward { get; set; }
     }

@@ -10,25 +10,25 @@ namespace LevelUp.Domain.Entities
     public class RewardEntity
     {
         [Key]
-        [Column("reward_id")]
+        [Column("REWARD_ID")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
-        [Column("name")]
+        [Column("NAME")]
         public string Name { get; set; } = string.Empty;
 
         [StringLength(1000)]
-        [Column("description")]
+        [Column("DESCRIPTION")]
         public string? Description { get; set; }
 
         [Required]
-        [Column("point_cost")]
+        [Column("POINT_COST")]
         [Range(1, int.MaxValue, ErrorMessage = "PointCost deve ser maior que 0.")]
         public int PointCost { get; set; }
 
         [Required]
-        [Column("stock_quantity")]
+        [Column("STOCK_QUANTITY")]
         [Range(0, int.MaxValue, ErrorMessage = "StockQuantity não pode ser negativo.")]
         public int StockQuantity { get; set; } = 0;
 
