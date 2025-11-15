@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace LevelUp.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20251115191552_InitialTables")]
-    partial class InitialTables
+    [Migration("20251115195412_FinalDatabase")]
+    partial class FinalDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,9 +90,6 @@ namespace LevelUp.Infra.Data.Migrations
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("POINTS_SPENT");
 
-                    b.Property<int>("REWARD_ID")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<DateTime>("RedeemedAt")
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("REDEEMED_AT");
@@ -100,9 +97,6 @@ namespace LevelUp.Infra.Data.Migrations
                     b.Property<int>("RewardId")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("REWARD_ID");
-
-                    b.Property<int>("USER_ID")
-                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("NUMBER(10)")
@@ -114,14 +108,7 @@ namespace LevelUp.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TB_LEVELUP_REWARD_REDEMPTIONS", t =>
-                        {
-                            t.Property("REWARD_ID")
-                                .HasColumnName("REWARD_ID1");
-
-                            t.Property("USER_ID")
-                                .HasColumnName("USER_ID1");
-                        });
+                    b.ToTable("TB_LEVELUP_REWARD_REDEMPTIONS");
                 });
 
             modelBuilder.Entity("LevelUp.Domain.Entities.TeamEntity", b =>
@@ -206,9 +193,6 @@ namespace LevelUp.Infra.Data.Migrations
                         .HasDefaultValue("USER")
                         .HasColumnName("ROLE");
 
-                    b.Property<int?>("TEAM_ID")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<int?>("TeamId")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("TEAM_ID");
@@ -222,13 +206,9 @@ namespace LevelUp.Infra.Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("TEAM_ID");
+                    b.HasIndex("TeamId");
 
-                    b.ToTable("TB_LEVELUP_USERS", t =>
-                        {
-                            t.Property("TEAM_ID")
-                                .HasColumnName("TEAM_ID1");
-                        });
+                    b.ToTable("TB_LEVELUP_USERS");
                 });
 
             modelBuilder.Entity("LevelUp.Domain.Entities.RewardRedemptionEntity", b =>
@@ -256,7 +236,8 @@ namespace LevelUp.Infra.Data.Migrations
                 {
                     b.HasOne("LevelUp.Domain.Entities.TeamEntity", "Team")
                         .WithMany("Users")
-                        .HasForeignKey("TEAM_ID");
+                        .HasForeignKey("TeamId")
+                        .HasConstraintName("FK_USERS_TEAM");
 
                     b.Navigation("Team");
                 });

@@ -30,11 +30,9 @@ namespace LevelUp.Domain.Entities
         [Range(1, int.MaxValue, ErrorMessage = "PointsSpent deve ser maior que 0.")]
         public int PointsSpent { get; set; }
 
-        [ForeignKey("USER_ID")]
         [JsonIgnore]
         public virtual UserEntity User { get; set; }
 
-        [ForeignKey("REWARD_ID")]
         [JsonIgnore]
         public virtual RewardEntity Reward { get; set; }
     }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LevelUp.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialTables : Migration
+    public partial class FinalDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,15 +58,14 @@ namespace LevelUp.Infra.Data.Migrations
                     ROLE = table.Column<string>(type: "NVARCHAR2(20)", maxLength: 20, nullable: false, defaultValue: "USER"),
                     CREATED_AT = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false, defaultValueSql: "SYSDATE"),
                     UPDATED_AT = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true),
-                    IS_ACTIVE = table.Column<string>(type: "CHAR(1)", nullable: false, defaultValue: "Y"),
-                    TEAM_ID1 = table.Column<int>(type: "NUMBER(10)", nullable: true)
+                    IS_ACTIVE = table.Column<string>(type: "CHAR(1)", nullable: false, defaultValue: "Y")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_LEVELUP_USERS", x => x.USER_ID);
                     table.ForeignKey(
-                        name: "FK_TB_LEVELUP_USERS_TB_LEVELUP_TEAMS_TEAM_ID1",
-                        column: x => x.TEAM_ID1,
+                        name: "FK_USERS_TEAM",
+                        column: x => x.TEAM_ID,
                         principalTable: "TB_LEVELUP_TEAMS",
                         principalColumn: "TEAM_ID");
                 });
@@ -80,9 +79,7 @@ namespace LevelUp.Infra.Data.Migrations
                     USER_ID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     REWARD_ID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     REDEEMED_AT = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    POINTS_SPENT = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    REWARD_ID1 = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    USER_ID1 = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    POINTS_SPENT = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,9 +121,9 @@ namespace LevelUp.Infra.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_LEVELUP_USERS_TEAM_ID1",
+                name: "IX_TB_LEVELUP_USERS_TEAM_ID",
                 table: "TB_LEVELUP_USERS",
-                column: "TEAM_ID1");
+                column: "TEAM_ID");
         }
 
         /// <inheritdoc />

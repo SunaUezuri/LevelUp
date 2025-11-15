@@ -56,7 +56,6 @@ namespace LevelUp.Domain.Entities
         [Column("IS_ACTIVE", TypeName = "CHAR(1)")]
         public char IsActive { get; set; }
 
-        [ForeignKey("TEAM_ID")]
         [JsonIgnore]
         public virtual TeamEntity? Team { get; set; }
 

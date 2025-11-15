@@ -21,6 +21,11 @@ namespace LevelUp.Infra.Data.AppData
                 e.Property(u => u.IsActive).HasDefaultValue('Y');
 
                 e.Property(u => u.IsActive).HasColumnType("CHAR(1)");
+
+                e.HasOne(user => user.Team)
+                 .WithMany(team => team.Users)
+                 .HasForeignKey(user => user.TeamId)
+                 .HasConstraintName("FK_USERS_TEAM");
             });
 
             modelBuilder.Entity<RewardEntity>(e =>
@@ -46,6 +51,7 @@ namespace LevelUp.Infra.Data.AppData
                  .HasForeignKey(redemption => redemption.RewardId) // A FK em RewardRedemptionEntity
                  .HasConstraintName("FK_REDEMPTIONS_REWARD");
             });
+
         }
 
         public DbSet<TeamEntity> Teams { get; set; }
