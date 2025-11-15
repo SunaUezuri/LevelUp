@@ -8,7 +8,6 @@ COPY ["LevelUp.Application/LevelUp.Application.csproj", "LevelUp.Application/"]
 COPY ["LevelUp.Domain/LevelUp.Domain.csproj", "LevelUp.Domain/"]
 COPY ["LevelUp.Infra.Data/LevelUp.Infra.Data.csproj", "LevelUp.Infra.Data/"]
 COPY ["LevelUp.Infra.IoC/LevelUp.Infra.IoC.csproj", "LevelUp.Infra.IoC/"]
-COPY ["LevelUp.Api.Doc/LevelUp.Api.Doc.csproj", "LevelUp.Api.Doc/"]
 
 RUN dotnet restore "LevelUp.sln"
 
