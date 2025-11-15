@@ -2,9 +2,6 @@
 **/bin/
 **/obj/
 
-# Exclui o projeto de testes
-LevelUp.Tests/
-
 # Exclui o controle de versão
 .git/
 .gitignore
