@@ -4,6 +4,8 @@ using LevelUp.Domain.Errors;
 using LevelUp.Domain.Interfaces;
 using LevelUp.Infra.Data.AppData;
 using Microsoft.EntityFrameworkCore;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace LevelUp.Infra.Data.Repositories
 {
@@ -17,9 +19,22 @@ namespace LevelUp.Infra.Data.Repositories
 
         public async Task<RewardEntity?> CreateAsync(RewardEntity reward)
         {
+            var p_reward_id = new OracleParameter("P_REWARD_ID", OracleDbType.Int32, ParameterDirection.Output);
+
+            await _context.Database.ExecuteSqlInterpolatedAsync($"""
+                    BEGIN
+                        PKG_LEVELUP_APP.PR_CREATE_REWARD(
+                            P_NAME           => {reward.Name},
+                            P_DESCRIPTION    => {reward.Description},
+                            P_POINT_COST     => {reward.PointCost},
+                            P_STOCK_QUANTITY => {reward.StockQuantity},
+                            P_REWARD_ID      => {p_reward_id}
+                        );
+                    END;
+                    """);
+
+            reward.Id = Convert.ToInt32(p_reward_id.Value.ToString());
             reward.CreatedAt = DateTime.UtcNow;
-            _context.Rewards.Add(reward);
-            await _context.SaveChangesAsync();
             return reward;
         }
 

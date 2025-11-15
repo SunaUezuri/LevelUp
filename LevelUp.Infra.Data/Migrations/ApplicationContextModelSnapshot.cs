@@ -107,9 +107,9 @@ namespace LevelUp.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("REWARD_ID");
+                    b.HasIndex("RewardId");
 
-                    b.HasIndex("USER_ID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("TB_LEVELUP_REWARD_REDEMPTIONS", t =>
                         {
@@ -232,15 +232,17 @@ namespace LevelUp.Infra.Data.Migrations
                 {
                     b.HasOne("LevelUp.Domain.Entities.RewardEntity", "Reward")
                         .WithMany("RewardRedemptions")
-                        .HasForeignKey("REWARD_ID")
+                        .HasForeignKey("RewardId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_REDEMPTIONS_REWARD");
 
                     b.HasOne("LevelUp.Domain.Entities.UserEntity", "User")
                         .WithMany("RewardRedemptions")
-                        .HasForeignKey("USER_ID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_REDEMPTIONS_USER");
 
                     b.Navigation("Reward");
 

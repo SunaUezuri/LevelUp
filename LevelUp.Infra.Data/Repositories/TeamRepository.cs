@@ -4,6 +4,8 @@ using LevelUp.Domain.Errors;
 using LevelUp.Domain.Interfaces;
 using LevelUp.Infra.Data.AppData;
 using Microsoft.EntityFrameworkCore;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace LevelUp.Infra.Data.Repositories
 {
@@ -18,8 +20,18 @@ namespace LevelUp.Infra.Data.Repositories
 
         public async Task<TeamEntity?> CreateAsync(TeamEntity team)
         {
-            _context.Teams.Add(team);
-            await _context.SaveChangesAsync();
+            var p_team_id = new OracleParameter("P_TEAM_ID", OracleDbType.Int32, ParameterDirection.Output);
+
+            await _context.Database.ExecuteSqlInterpolatedAsync($"""
+                        BEGIN
+                            PKG_LEVELUP_APP.PR_CREATE_TEAM(
+                                P_TEAM_NAME => {team.TeamName},
+                                P_TEAM_ID   => {p_team_id}
+                            );
+                        END;
+                        """);
+
+            team.Id = Convert.ToInt32(p_team_id.Value.ToString());
             return team;
         }
 

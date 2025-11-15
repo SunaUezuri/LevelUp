@@ -31,6 +31,21 @@ namespace LevelUp.Infra.Data.AppData
 
                 e.Property(r => r.IsActive).HasColumnType("CHAR(1)");
             });
+
+            modelBuilder.Entity<RewardRedemptionEntity>(e =>
+            {
+                // Define a relação 1-N com User
+                e.HasOne(redemption => redemption.User)
+                 .WithMany(user => user.RewardRedemptions) // A coleção em UserEntity
+                 .HasForeignKey(redemption => redemption.UserId) // A FK em RewardRedemptionEntity
+                 .HasConstraintName("FK_REDEMPTIONS_USER"); // Nome da FK no banco
+
+                // Define a relação 1-N com Reward
+                e.HasOne(redemption => redemption.Reward)
+                 .WithMany(reward => reward.RewardRedemptions) // A coleção em RewardEntity
+                 .HasForeignKey(redemption => redemption.RewardId) // A FK em RewardRedemptionEntity
+                 .HasConstraintName("FK_REDEMPTIONS_REWARD");
+            });
         }
 
         public DbSet<TeamEntity> Teams { get; set; }

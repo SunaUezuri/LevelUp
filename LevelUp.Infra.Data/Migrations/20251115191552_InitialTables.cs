@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LevelUp.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialTables : Migration
+    public partial class InitialTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,35 +81,35 @@ namespace LevelUp.Infra.Data.Migrations
                     REWARD_ID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     REDEEMED_AT = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
                     POINTS_SPENT = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    USER_ID1 = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    REWARD_ID1 = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    REWARD_ID1 = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    USER_ID1 = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_LEVELUP_REWARD_REDEMPTIONS", x => x.REDEMPTION_ID);
                     table.ForeignKey(
-                        name: "FK_TB_LEVELUP_REWARD_REDEMPTIONS_TB_LEVELUP_REWARDS_REWARD_ID1",
-                        column: x => x.REWARD_ID1,
+                        name: "FK_REDEMPTIONS_REWARD",
+                        column: x => x.REWARD_ID,
                         principalTable: "TB_LEVELUP_REWARDS",
                         principalColumn: "REWARD_ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TB_LEVELUP_REWARD_REDEMPTIONS_TB_LEVELUP_USERS_USER_ID1",
-                        column: x => x.USER_ID1,
+                        name: "FK_REDEMPTIONS_USER",
+                        column: x => x.USER_ID,
                         principalTable: "TB_LEVELUP_USERS",
                         principalColumn: "USER_ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_LEVELUP_REWARD_REDEMPTIONS_REWARD_ID1",
+                name: "IX_TB_LEVELUP_REWARD_REDEMPTIONS_REWARD_ID",
                 table: "TB_LEVELUP_REWARD_REDEMPTIONS",
-                column: "REWARD_ID1");
+                column: "REWARD_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_LEVELUP_REWARD_REDEMPTIONS_USER_ID1",
+                name: "IX_TB_LEVELUP_REWARD_REDEMPTIONS_USER_ID",
                 table: "TB_LEVELUP_REWARD_REDEMPTIONS",
-                column: "USER_ID1");
+                column: "USER_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_LEVELUP_TEAMS_TEAM_NAME",

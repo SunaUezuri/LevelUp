@@ -4,6 +4,8 @@ using LevelUp.Domain.Errors;
 using LevelUp.Domain.Interfaces;
 using LevelUp.Infra.Data.AppData;
 using Microsoft.EntityFrameworkCore;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace LevelUp.Infra.Data.Repositories
 {
@@ -33,9 +35,27 @@ namespace LevelUp.Infra.Data.Repositories
 
         public async Task<UserEntity?> CreateAsync(UserEntity user)
         {
-            user.CreatedAt = DateTime.UtcNow;
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            // 1. Define APENAS o parâmetro de SAÍDA (OUT)
+            var p_user_id = new OracleParameter("P_USER_ID", OracleDbType.Int32, ParameterDirection.Output);
+
+            // 2. Executa a Procedure usando interpolação
+            await _context.Database.ExecuteSqlInterpolatedAsync($"""
+                        BEGIN
+                            PKG_LEVELUP_APP.PR_CREATE_USER(
+                                P_FULL_NAME     => {user.FullName},
+                                P_EMAIL         => {user.Email},
+                                P_PASSWORD_HASH => {user.PasswordHash},
+                                P_JOB_TITLE     => {user.JobTitle},
+                                P_TEAM_ID       => {user.TeamId},
+                                P_ROLE          => {user.Role},
+                                P_USER_ID       => {p_user_id}
+                            );
+                        END;
+                        """);
+
+            // 3. Recupera o ID gerado
+            user.Id = Convert.ToInt32(p_user_id.Value.ToString());
+
             return user;
         }
 
