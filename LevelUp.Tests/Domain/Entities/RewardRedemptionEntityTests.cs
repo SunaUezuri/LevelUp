@@ -45,7 +45,7 @@ namespace LevelUp.Tests.Domain.Entities
             Assert.NotEmpty(validationResults);
             Assert.Contains(validationResults, v =>
                 v.MemberNames.Contains("UserId") &&
-                (v.ErrorMessage.Contains("range") || v.ErrorMessage.Contains("value"))
+                (v.ErrorMessage.Contains("deve ser") || v.ErrorMessage.Contains("válido."))
             );
         }
 
@@ -64,7 +64,7 @@ namespace LevelUp.Tests.Domain.Entities
             Assert.NotEmpty(validationResults);
             Assert.Contains(validationResults, v =>
                 v.MemberNames.Contains("RewardId") &&
-                (v.ErrorMessage.Contains("range") || v.ErrorMessage.Contains("value"))
+                (v.ErrorMessage.Contains("deve ser") || v.ErrorMessage.Contains("válido."))
             );
         }
 
@@ -83,7 +83,7 @@ namespace LevelUp.Tests.Domain.Entities
             Assert.NotEmpty(validationResults);
             Assert.Contains(validationResults, v =>
                 v.MemberNames.Contains("PointsSpent") &&
-                (v.ErrorMessage.Contains("range") || v.ErrorMessage.Contains("value"))
+                (v.ErrorMessage.Contains("deve ser") || v.ErrorMessage.Contains("maior que 0."))
             );
         }
     }
