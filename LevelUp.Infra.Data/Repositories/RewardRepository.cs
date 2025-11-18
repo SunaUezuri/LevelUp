@@ -88,7 +88,7 @@ namespace LevelUp.Infra.Data.Repositories
 
             if (reward is null)
             {
-                throw new NoContentException("Usuário não encontrado.");
+                throw new NoContentException("Recompensa não encontrada.");
             }
 
             return reward;
