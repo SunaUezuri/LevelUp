@@ -29,6 +29,12 @@
 
 ---
 
+## 🔗 Links
+
+[![Vídeo de Demonstração](https://img.shields.io/badge/▶️%20Ver%20Demonstração-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/AXnxzQ7-6b8) 
+
+---
+
 ## 🎯 Sobre o Projeto
 
 O **LevelUp** é uma solução de back-end robusta, construída em .NET 8 com Clean Architecture, projetada para a Global Solution da FIAP com o tema "O Futuro do Trabalho".
